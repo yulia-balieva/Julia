@@ -1,40 +1,43 @@
-##1
-x[1]=mean(iris[,c("Sepal.Length")])
-x[2]=summary(iris[,c("Sepal.Width")])[4]
-x[3]=summary(iris[,c("Petal.Length")])[4]
-x[4]=summary(iris[,c("Petal.Width")])[4]
-list<-list(x[1],x[2],x[3],x[4])
-x[1]
-##2
-iris[,-5]
-for (i in 1:150)
-  { 
-    y[i]<-summary(iris[,-5][i,])[4]
-    
+####################################          №1
+for (i in 1:4)
+{
+ x<-c(mean(iris[,i]))
+ list[i]<-list(x)
+}
+list
+#####################################         №2
+y<-c()
+for (i in 1:nrow(iris))
+  { x<-c()
+    for (j in 1:4)
+    {
+      x<-c(x,iris[,-5][i,j])
+    }
+    y<-c(y,mean(x)) 
   }
 y
-##3
+#########################################     №3
 DNA<-sample(c("T","G","C","A"),1000,replace=TRUE)
+y<-factor(DNA)
 n=0
-m=0
+n<-summary(y)[1] + summary(y)[4]
+dna_at<-n/sum(summary(y))
+n
+dna_at
+
+
 for (j in 1:1000)
 {  
-  if (DNA[j]=="T" )
+  if (DNA[j]=="T" | DNA[j]=="A"  )
    { 
      n=n+1
   
   }
-  if (DNA[j]=="A" )
-  { 
-    m=m+1
-    
-  }
-  s<-n+m
 }
-
-length(DNA)
-dna_at<-s/length(DNA)
-##4
+dna_at<-n/length(DNA)
+n
+dna_at
+########################################      №4
 set<-sample(letters,1000,replace=TRUE)
 n=0
 for (i in 1:length(set))
@@ -45,7 +48,7 @@ for (i in 1:length(set))
   }
 }
 n
-##6
+########################################      №6
 x<-sample(c(1,2,3,4,5,6,7,8,9),10,replace=TRUE)
 x<-c(1,2,3,4,5,6,7,8,9,10)
 mediana=function(k)
@@ -63,7 +66,7 @@ mediana=function(k)
 }
 sort(x)
 mediana(x)
-##7
+########################################      №7
 a<-iris[iris$Species=="setosa",c("Sepal.Length","Petal.Length","Species")]
 b<-iris[iris$Species=="versicolor",c("Sepal.Length","Petal.Length","Species")]
 c<-iris[iris$Species=="virginica",c("Sepal.Length","Petal.Length","Species")]
@@ -71,7 +74,7 @@ iris[,1]
 plot(a[,2],a[,1],xlab="Petal.Length",ylab="Sepal.Length",type="p")
 plot(b[,2],b[,1],xlab="Petal.Length",ylab="Sepal.Length",type="p")
 plot(c[,2],c[,1],xlab="Petal.Length",ylab="Sepal.Length",type="p")
-##8
+########################################      №8
 library(ggplot2)
 n<-c(0,0,0,0,0,0,0,0)
 s<-c(0,0,0,0,0,0,0,0)
@@ -86,24 +89,22 @@ for (j in 1:length(levels(diamonds$clarity)))
     }
   }
 }
-n
-s
 for (i in 1:length(levels(diamonds$clarity)))
 {  
   sred[i]=s[[i]]/n[i]
 }
 sred
-length(levels(diamonds$clarity))
-##5
-x<-c(0,0,0)
+########################################      №5
+x<-c()
 for (i in 1:length(levels(iris$Species)))
 {
-  x[i]=mean(iris[iris$Species==levels(iris$Species)[i],c("Petal.Length")])
+  x<-c(x,mean(iris[iris$Species==levels(iris$Species)[i],c("Petal.Length")]))
 }
-x
-x <- factor(x)
-x
-class(x)
-levels(x) <- c("setosa", "versicolor","virginica")
-x
+a = data.frame(setosa = x[1], versicolor= x[2], virginica = x[3])
+a
+sort(a)
+names(sort(a))
+a<-factor(names(sort(a)))
+a
+
 
